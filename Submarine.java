@@ -14,7 +14,7 @@ public class Submarine extends BaseActor
     {
         super(x,y,stage);
 
-        setAnimator( new Animator("INSERT NAME HERE") );
+        setAnimator( new Animator("assets/images/sub.png") );
         setBoundaryPolygon(10);
         
         physics = new Physics(2000, 800, 8000);

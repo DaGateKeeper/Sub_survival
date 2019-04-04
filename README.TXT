@@ -20,3 +20,9 @@ made the labels for score and enemy kills.
 Additionally I made added place holders for sound, 
 music, items and made a method that 
 prevents the sub from going off screen.
+
+4-4-19 EDITS BY JOHN. pushed to GIT around 8pm
+Added more code in vasious spots
+ISSUES: bottom wall is too big, the aliens are swimming in wrong direction
+also there is no top wall for some reason..... and physics and sounds and 
+menus need to be added

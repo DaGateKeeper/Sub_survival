@@ -1,14 +1,14 @@
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
  
-public class Wall extends BaseActor
+public class Core extends BaseActor
 {
 //from the Brick Breaker
-    public Wall(float x, float y, Stage stage)
+    public Core(float x, float y, Stage stage)
     {
         super(x,y,stage);
 
-        setAnimator( new Animator("assets/images/white-square.png") );
+        setAnimator( new Animator("assets/images/the-core.png") );
     }
 
 }

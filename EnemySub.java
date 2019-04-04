@@ -9,9 +9,9 @@ public class EnemySub extends BaseActor
     {
         super(x,y,stage);
 
-        setAnimator( new Animator("INSERT NAME HERE") );
+        setAnimator( new Animator("assets/images/subenemy.png") );
         
-       // setPhysics( new Physics(0, 50, 0) );
+       setPhysics( new Physics(0, 50, 0) );
         
         physics.setSpeed(100);
         

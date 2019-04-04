@@ -19,7 +19,7 @@ public class Launcher
         // To start a LibGDX program, this method:
         // (1) creates an instance of the game
         // (2) creates a new application with game instance and window settings as argument
-        Game game = new TemplateGame();
+        Game game = new SubSurvivalGame();
         LwjglApplication launcher = new LwjglApplication(game, "Sub Survival", 800, 600);
     }
 }
