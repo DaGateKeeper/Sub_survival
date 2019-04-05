@@ -1,7 +1,8 @@
 #BlueJ package file
-dependency1.from=InstructionScreen
-dependency1.to=BaseActor
+dependency1.from=GameOver
+dependency1.to=Animator
 dependency1.type=UsesDependency
+<<<<<<< HEAD
 dependency10.from=CreditsScreen
 dependency10.to=BaseGame
 dependency10.type=UsesDependency
@@ -31,10 +32,42 @@ dependency18.to=Animator
 dependency18.type=UsesDependency
 dependency19.from=Item
 dependency19.to=Physics
+=======
+dependency10.from=Item
+dependency10.to=Physics
+dependency10.type=UsesDependency
+dependency11.from=Laser
+dependency11.to=Animator
+dependency11.type=UsesDependency
+dependency12.from=Laser
+dependency12.to=Physics
+dependency12.type=UsesDependency
+dependency13.from=Launcher
+dependency13.to=SubSurvivalGame
+dependency13.type=UsesDependency
+dependency14.from=BaseActor
+dependency14.to=Animator
+dependency14.type=UsesDependency
+dependency15.from=BaseActor
+dependency15.to=Physics
+dependency15.type=UsesDependency
+dependency16.from=BaseGame
+dependency16.to=BaseScreen
+dependency16.type=UsesDependency
+dependency17.from=Core
+dependency17.to=Animator
+dependency17.type=UsesDependency
+dependency18.from=LevelScreen
+dependency18.to=EnemySub
+dependency18.type=UsesDependency
+dependency19.from=LevelScreen
+dependency19.to=Submarine
+>>>>>>> 9bc230e36e91a7e32f8ea42c5ae1f94e94315b22
 dependency19.type=UsesDependency
-dependency2.from=InstructionScreen
+dependency2.from=Wall
 dependency2.to=Animator
 dependency2.type=UsesDependency
+<<<<<<< HEAD
 dependency20.from=Launcher
 dependency20.to=SubSurvivalGame
 dependency20.type=UsesDependency
@@ -64,10 +97,42 @@ dependency28.to=BaseScreen
 dependency28.type=UsesDependency
 dependency29.from=Submarine
 dependency29.to=Laser
+=======
+dependency20.from=LevelScreen
+dependency20.to=Core
+dependency20.type=UsesDependency
+dependency21.from=LevelScreen
+dependency21.to=BaseActor
+dependency21.type=UsesDependency
+dependency22.from=LevelScreen
+dependency22.to=Animator
+dependency22.type=UsesDependency
+dependency23.from=LevelScreen
+dependency23.to=Wall
+dependency23.type=UsesDependency
+dependency24.from=LevelScreen
+dependency24.to=Laser
+dependency24.type=UsesDependency
+dependency25.from=LevelScreen
+dependency25.to=Item
+dependency25.type=UsesDependency
+dependency26.from=LevelScreen
+dependency26.to=BaseGame
+dependency26.type=UsesDependency
+dependency27.from=MenuScreen
+dependency27.to=BaseActor
+dependency27.type=UsesDependency
+dependency28.from=MenuScreen
+dependency28.to=Animator
+dependency28.type=UsesDependency
+dependency29.from=MenuScreen
+dependency29.to=LevelScreen
+>>>>>>> 9bc230e36e91a7e32f8ea42c5ae1f94e94315b22
 dependency29.type=UsesDependency
-dependency3.from=InstructionScreen
-dependency3.to=MenuScreen
+dependency3.from=Explosion
+dependency3.to=Animator
 dependency3.type=UsesDependency
+<<<<<<< HEAD
 dependency30.from=EnemySub
 dependency30.to=Animator
 dependency30.type=UsesDependency
@@ -97,10 +162,42 @@ dependency38.to=Animator
 dependency38.type=UsesDependency
 dependency39.from=LevelScreen
 dependency39.to=Explosion
+=======
+dependency30.from=MenuScreen
+dependency30.to=InstructionScreen
+dependency30.type=UsesDependency
+dependency31.from=MenuScreen
+dependency31.to=CreditsScreen
+dependency31.type=UsesDependency
+dependency32.from=MenuScreen
+dependency32.to=BaseGame
+dependency32.type=UsesDependency
+dependency33.from=InstructionScreen
+dependency33.to=BaseActor
+dependency33.type=UsesDependency
+dependency34.from=InstructionScreen
+dependency34.to=Animator
+dependency34.type=UsesDependency
+dependency35.from=InstructionScreen
+dependency35.to=MenuScreen
+dependency35.type=UsesDependency
+dependency36.from=InstructionScreen
+dependency36.to=BaseGame
+dependency36.type=UsesDependency
+dependency37.from=CreditsScreen
+dependency37.to=BaseActor
+dependency37.type=UsesDependency
+dependency38.from=CreditsScreen
+dependency38.to=Animator
+dependency38.type=UsesDependency
+dependency39.from=CreditsScreen
+dependency39.to=MenuScreen
+>>>>>>> 9bc230e36e91a7e32f8ea42c5ae1f94e94315b22
 dependency39.type=UsesDependency
-dependency4.from=InstructionScreen
-dependency4.to=BaseGame
+dependency4.from=EnemySub
+dependency4.to=Animator
 dependency4.type=UsesDependency
+<<<<<<< HEAD
 dependency40.from=LevelScreen
 dependency40.to=Item
 dependency40.type=UsesDependency
@@ -137,6 +234,41 @@ package.editor.y=-8
 package.frame.height=1096
 package.frame.width=1936
 package.numDependencies=41
+=======
+dependency40.from=CreditsScreen
+dependency40.to=BaseGame
+dependency40.type=UsesDependency
+dependency5.from=EnemySub
+dependency5.to=Physics
+dependency5.type=UsesDependency
+dependency6.from=Submarine
+dependency6.to=Animator
+dependency6.type=UsesDependency
+dependency7.from=Submarine
+dependency7.to=Physics
+dependency7.type=UsesDependency
+dependency8.from=SubSurvivalGame
+dependency8.to=MenuScreen
+dependency8.type=UsesDependency
+dependency9.from=Item
+dependency9.to=Animator
+dependency9.type=UsesDependency
+editor.fx.0.height=738
+editor.fx.0.width=816
+editor.fx.0.x=-927
+editor.fx.0.y=0
+objectbench.height=66
+objectbench.width=1298
+package.divider.horizontal=0.5494736842105263
+package.divider.vertical=0.8839427662957074
+package.editor.height=549
+package.editor.width=1190
+package.editor.x=25
+package.editor.y=0
+package.frame.height=728
+package.frame.width=1338
+package.numDependencies=40
+>>>>>>> 9bc230e36e91a7e32f8ea42c5ae1f94e94315b22
 package.numTargets=22
 package.showExtends=true
 package.showUses=true
@@ -154,12 +286,12 @@ target1.width=130
 target1.x=650
 target1.y=160
 target10.height=30
-target10.name=TemplateActor
+target10.name=Physics
 target10.showInterface=false
 target10.type=ClassTarget
-target10.width=120
-target10.x=330
-target10.y=110
+target10.width=80
+target10.x=310
+target10.y=240
 target11.height=30
 target11.name=MenuScreen
 target11.showInterface=false
@@ -229,12 +361,18 @@ target19.width=90
 target19.x=290
 target19.y=60
 target2.height=30
-target2.name=Explosion
+target2.name=GameOver
 target2.showInterface=false
 target2.type=ClassTarget
+<<<<<<< HEAD
 target2.width=80
 target2.x=670
 target2.y=110
+=======
+target2.width=90
+target2.x=210
+target2.y=210
+>>>>>>> 9bc230e36e91a7e32f8ea42c5ae1f94e94315b22
 target20.height=30
 target20.name=LevelScreen
 target20.showInterface=false
@@ -254,14 +392,23 @@ target22.name=Core
 target22.showInterface=false
 target22.type=ClassTarget
 target22.width=80
+<<<<<<< HEAD
 target22.x=880
+=======
+target22.x=890
+>>>>>>> 9bc230e36e91a7e32f8ea42c5ae1f94e94315b22
 target22.y=110
 target3.height=30
-target3.name=GameOver
+target3.name=Explosion
 target3.showInterface=false
 target3.type=ClassTarget
+<<<<<<< HEAD
 target3.width=90
 target3.x=1160
+=======
+target3.width=80
+target3.x=680
+>>>>>>> 9bc230e36e91a7e32f8ea42c5ae1f94e94315b22
 target3.y=110
 target4.height=30
 target4.name=Wall
@@ -299,9 +446,15 @@ target8.width=130
 target8.x=130
 target8.y=60
 target9.height=30
-target9.name=Physics
+target9.name=TemplateActor
 target9.showInterface=false
 target9.type=ClassTarget
+<<<<<<< HEAD
 target9.width=80
 target9.x=290
 target9.y=210
+=======
+target9.width=120
+target9.x=330
+target9.y=110
+>>>>>>> 9bc230e36e91a7e32f8ea42c5ae1f94e94315b22

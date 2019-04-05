@@ -61,11 +61,11 @@ public class MenuScreen extends BaseScreen
 
     public void update(float deltaTime)
     {
-        if (Gdx.input.isKeyPressed(Keys.S))
+        if (Gdx.input.isKeyJustPressed(Keys.S))
             BaseGame.setActiveScreen( new LevelScreen() );    
-        if (Gdx.input.isKeyPressed(Keys.D))
+        if (Gdx.input.isKeyJustPressed(Keys.D))
             BaseGame.setActiveScreen( new InstructionScreen() );    
-        if (Gdx.input.isKeyPressed(Keys.W))
+        if (Gdx.input.isKeyJustPressed(Keys.W))
             BaseGame.setActiveScreen( new CreditsScreen() );    
 
     } 

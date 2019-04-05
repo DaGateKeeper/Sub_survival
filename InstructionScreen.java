@@ -28,7 +28,7 @@ public class InstructionScreen extends BaseScreen
         title.setFontScale(1.5f);
         title.setColor( Color.BLUE );
 
-        Label back = new Label("Press 'F' to Return", BaseGame.labelStyle);
+        Label back = new Label("Press 'S' to Return", BaseGame.labelStyle);
         back.setColor( Color.CYAN );
         
         Label goal = new Label("Defend the Core!", BaseGame.labelStyle);
@@ -81,7 +81,7 @@ public class InstructionScreen extends BaseScreen
     public void update(float deltaTime)
     {
         
-         if (Gdx.input.isKeyPressed(Keys.F))
+         if (Gdx.input.isKeyJustPressed(Keys.S))
             BaseGame.setActiveScreen( new MenuScreen() );    
     }
 

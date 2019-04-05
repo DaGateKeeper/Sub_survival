@@ -132,13 +132,32 @@ public class LevelScreen extends BaseScreen
             {
                 switch(item.itemName)
                 {
-                    case "ITEM NAME 1":
-                        // what this item does.
+                    case "Pierce":
+                        // goes through the enemies
+                        ammo += 20;
+                        ammoLabel.setText("Ammo: " + ammo);
+                        //if(laser.overlaps(
                         break;
-                    case "ITEM NAME 2":
-                        // what this item does.
+                    case "Rapid":
+                        // fire shots faster
+                        ammo += 20;
+                        ammoLabel.setText("Ammo: " + ammo);
+                               laserTimer = .375f;
                         break;
+<<<<<<< HEAD
                     // Reset to normal weapon.
+=======
+                         case "AddShot":
+                        // Adds normal bullets 
+                        ammo += 15;
+                        ammoLabel.setText("Ammo: " + ammo);
+                         break;
+                         case "Normal":
+                         // returns the ammo to normal
+                                laserTimer = 1;
+                         break;
+                        
+>>>>>>> 9bc230e36e91a7e32f8ea42c5ae1f94e94315b22
                     default:
                         submarine.weapon = 0;
                         submarine.specialAmmo = 0;

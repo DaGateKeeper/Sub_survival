@@ -32,8 +32,11 @@ public class CreditsScreen extends BaseScreen
         Label credits3 = new Label("Brian Coene", BaseGame.labelStyle);
         credits3.setColor( Color.CYAN );
         
-        Label credits4 = new Label("John ", BaseGame.labelStyle);
+        Label credits4 = new Label("John Kulins", BaseGame.labelStyle);
         credits4.setColor( Color.CYAN );
+
+        Label back = new Label("Press 'S' to Return", BaseGame.labelStyle);
+        back.setColor( Color.CYAN );
 
         uiTable.add(title);
         uiTable.row();
@@ -52,6 +55,8 @@ public class CreditsScreen extends BaseScreen
         uiTable.add().pad(10);
         uiTable.row();
         uiTable.add(credits4);
+        uiTable.row();
+        uiTable.add(back);
         
         
 
@@ -59,7 +64,7 @@ public class CreditsScreen extends BaseScreen
 
     public void update(float deltaTime)
     {
-      if (Gdx.input.isKeyPressed(Keys.A))
+      if (Gdx.input.isKeyJustPressed(Keys.S))
             BaseGame.setActiveScreen( new MenuScreen() );    
     }
 }
