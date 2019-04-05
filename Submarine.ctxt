@@ -5,4 +5,6 @@ comment1.params=x\ y\ stage
 comment1.target=Submarine(float,\ float,\ com.badlogic.gdx.scenes.scene2d.Stage)
 comment2.params=dt
 comment2.target=void\ act(float)
-numComments=3
+comment3.params=s
+comment3.target=void\ fire(BaseScreen)
+numComments=4

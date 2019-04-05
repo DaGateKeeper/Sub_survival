@@ -1,4 +1,4 @@
-   import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 
@@ -11,13 +11,18 @@ public class EnemySub extends BaseActor
 
        setAnimator( new Animator("assets/images/subenemy.png") );
         
-       setPhysics( new Physics(0, 50, 0) );
-        
-       physics.setSpeed(200);
+       setPhysics( new Physics(0, 100, 0) );
+       physics.setSpeed(physics.maximumSpeed);
         
        setRotation(0);
        physics.setMotionAngle(180);
        
        this.setBoundaryPolygon(8);
+    }
+    
+    @Override
+    public void act(float dt)
+    {
+        super.act(dt);
     }
 }

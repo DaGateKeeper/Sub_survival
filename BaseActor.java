@@ -295,7 +295,7 @@ public class BaseActor extends Group
         cam.update();
     }
 
-        public void setPhysics(Physics phys)
+    public void setPhysics(Physics phys)
     {
         physics = phys;
     }
@@ -306,7 +306,8 @@ public class BaseActor extends Group
         // if getStage is not null, actor is on stage
         return this.getStage() != null;
     }
-        public void centerAt(BaseActor other)
+    
+    public void centerAt(BaseActor other)
     {
         this.setPosition( other.getX() + other.getWidth()/2  - this.getWidth()/2,
                           other.getY() + other.getHeight()/2 - this.getHeight()/2 );

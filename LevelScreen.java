@@ -17,10 +17,9 @@ public class LevelScreen extends BaseScreen
 
     Submarine submarine;
     Core mainCore;
-    int score, ammo;
+    int score;
     Label coreLabel, scoreLabel, ammoLabel;
 
-    double laserTimer;
     Label laserStatus;
     double enemyTimer;
 
@@ -32,33 +31,27 @@ public class LevelScreen extends BaseScreen
          
        submarine = new Submarine(190, 25, mainStage);
        
-       // Why do we need walls
        mainCore = new Core(0,0, mainStage);
        mainCore.setSize(150, 800);
        mainCore.setBoundaryRectangle();
-       
 
-       Wall bottomWall = new Wall(0,0, mainStage);
+       /*Wall bottomWall = new Wall(0,0, mainStage);
        bottomWall.setSize(100,100);
        bottomWall.setBoundaryRectangle();
        bottomWall.setVisible(false);
 
        Wall topWall = new Wall(0,700, mainStage);
        topWall.setSize(800,100);
-       topWall.setBoundaryRectangle();
-        
-        
-       // ready to shoot immediately
-       laserTimer = 1;
+       topWall.setBoundaryRectangle();*/
+
        //Alien spawn timer
        enemyTimer = 0;
 
        score = 0;
        scoreLabel = new Label("Score: " + score, BaseGame.labelStyle);
        scoreLabel.setFontScale(0.5f);
-        
-       ammo = 15;
-       ammoLabel = new Label("Ammo: " + ammo, BaseGame.labelStyle);
+       
+       ammoLabel = new Label("Ammo: " + submarine.normalAmmo, BaseGame.labelStyle);
        ammoLabel.setFontScale(0.5f);
 
        uiTable.add( scoreLabel ).expandX().expandY().left().top().pad(20);
@@ -74,10 +67,9 @@ public class LevelScreen extends BaseScreen
        uiTable.add();
         
        //PIM = Gdx.audio.newMusic( Gdx.files.internal("assets/audio/bgm/Plans_in_Motion.ogg"));
-       missile = Gdx.audio.newSound( Gdx.files.internal("assets/audio/sfx/Missile-Launch.wav"));
-        
+       
        // PIM.setLooping(true);
-       // PIM.play(); 
+       // PIM.play();
     }
 
     public void update(float deltaTime)
@@ -89,7 +81,7 @@ public class LevelScreen extends BaseScreen
         if (Gdx.input.isKeyPressed(Keys.DOWN))
             submarine.physics.accelerateAtAngle(-90);
 
-        laserTimer += deltaTime;
+        submarine.shotTimer += deltaTime;
         enemyTimer += deltaTime;
 
         if ( submarine.isOnStage() )
@@ -98,33 +90,39 @@ public class LevelScreen extends BaseScreen
             // 1. you just pressed the space key
             // 2. the submarine is still on the stage (still visible)
             // 3. at least one second has passed since previous shot (laserTimer > 1)
-            if ( Gdx.input.isKeyJustPressed( Keys.SPACE ) && laserTimer > 1 && ammo > 0)
+            if (Gdx.input.isKeyJustPressed( Keys.SPACE ))
             {
-                Laser laser = new Laser(0,0, mainStage);
-                missile.play();
-                ammo--;
-                ammoLabel.setText( "Ammo: " + ammo);
-                laser.centerAt( submarine );
-                // reset timer, so player can not shoot until time goes by
-                laserTimer = 0;
+                submarine.fire(this);
+                ammoLabel.setText("Ammo: " + submarine.normalAmmo);
             }
 
-            if (enemyTimer >= 10)
+            if (enemyTimer >= 1)
             {
                 //float f;
                 //double RAND=Math.random() *600;
  
-              new EnemySub(800, (float) (Math.random() * 600), mainStage);
+              EnemySub e = new EnemySub(0, 0, mainStage);
+              e.setPosition(800, (float)(Math.random() * (600 - e.getHeight()) + (e.getHeight() / 2)));
               enemyTimer = 0;
             }
         }
- 
         
         // stop paddle from passing through walls
-        for (BaseActor wall : BaseActor.getList(mainStage, "Wall"))
+        /*for (BaseActor wall : BaseActor.getList(mainStage, "Wall"))
         {
             submarine.preventOverlap(wall);
+        }*/
+        
+        for (BaseActor l : BaseActor.getList(mainStage, "Laser"))
+        {
+            for (BaseActor e : BaseActor.getList(mainStage, "EnemySub"))
+            {
+                l.remove();
+                new Explosion(e.getX(), e.getY(), mainStage);
+                e.remove();
+            }
         }
+        
         //ITEMS SPAWN
         for (BaseActor actor : BaseActor.getList(mainStage, "Item"))
         {
@@ -140,7 +138,10 @@ public class LevelScreen extends BaseScreen
                     case "ITEM NAME 2":
                         // what this item does.
                         break;
+                    // Reset to normal weapon.
                     default:
+                        submarine.weapon = 0;
+                        submarine.specialAmmo = 0;
                         break;
                 }
                 item.remove();
@@ -162,12 +163,12 @@ public class LevelScreen extends BaseScreen
     public void endGame()
     {
         // Display Game Over message
-        // Play explosion at player sub.
+        new Explosion(submarine.getX(), submarine.getY(), mainStage);
         submarine.remove();
         // Play multiple explosions over core (or something).
         for (BaseActor e : BaseActor.getList(mainStage, "EnemySub"))
         {
-            // Create explosion at enemy
+            new Explosion(e.getX(), e.getY(), mainStage);
             e.remove();
         }
     }
