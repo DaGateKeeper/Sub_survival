@@ -1,4 +1,4 @@
-    import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 /**
@@ -21,6 +21,7 @@ public class Submarine extends BaseActor
         
     }
 
+    @Override
     public void act(float dt)
     {
         super.act(dt);

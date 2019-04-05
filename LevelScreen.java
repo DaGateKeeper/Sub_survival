@@ -16,12 +16,13 @@ public class LevelScreen extends BaseScreen
     EnemySub enemysub;
 
     Submarine submarine;
-    int coreHealth, score, ammo;
+    Core mainCore;
+    int score, ammo;
     Label coreLabel, scoreLabel, ammoLabel;
 
     double laserTimer;
     Label laserStatus;
-    double alienTimer;
+    double enemyTimer;
 
     public void initialize()
     {
@@ -32,7 +33,7 @@ public class LevelScreen extends BaseScreen
        submarine = new Submarine(190, 25, mainStage);
        
        // Why do we need walls
-       Core mainCore = new Core(0,0, mainStage);
+       mainCore = new Core(0,0, mainStage);
        mainCore.setSize(150, 800);
        mainCore.setBoundaryRectangle();
        
@@ -50,7 +51,7 @@ public class LevelScreen extends BaseScreen
        // ready to shoot immediately
        laserTimer = 1;
        //Alien spawn timer
-       alienTimer = 0;
+       enemyTimer = 0;
 
        score = 0;
        scoreLabel = new Label("Score: " + score, BaseGame.labelStyle);
@@ -89,7 +90,7 @@ public class LevelScreen extends BaseScreen
             submarine.physics.accelerateAtAngle(-90);
 
         laserTimer += deltaTime;
-        alienTimer += deltaTime;
+        enemyTimer += deltaTime;
 
         if ( submarine.isOnStage() )
         {
@@ -108,18 +109,18 @@ public class LevelScreen extends BaseScreen
                 laserTimer = 0;
             }
 
-            if (alienTimer >= 10)
+            if (enemyTimer >= 10)
             {
                 //float f;
                 //double RAND=Math.random() *600;
  
               new EnemySub(800, (float) (Math.random() * 600), mainStage);
-              alienTimer= 0;
+              enemyTimer = 0;
             }
         }
  
         
-                // stop paddle from passing through walls
+        // stop paddle from passing through walls
         for (BaseActor wall : BaseActor.getList(mainStage, "Wall"))
         {
             submarine.preventOverlap(wall);
@@ -131,16 +132,43 @@ public class LevelScreen extends BaseScreen
 
             if ( submarine.overlaps(item) )
             {
-                item.remove();
-
-                if (item.itemName.equals("NAMED"))
+                switch(item.itemName)
                 {
-                    //WHAT IT DOES
+                    case "ITEM NAME 1":
+                        // what this item does.
+                        break;
+                    case "ITEM NAME 2":
+                        // what this item does.
+                        break;
+                    default:
+                        break;
                 }
-                else if (item.itemName.equals("")){
-                }
+                item.remove();
             }
         }
-
+        
+        // Core health
+        for (BaseActor e : BaseActor.getList(mainStage, "EnemySub"))
+            if (e.overlaps(mainCore))
+            {
+                e.remove();
+                mainCore.health -= 1;
+                if (mainCore.health <= 0)
+                    endGame();
+            }
+    }
+    
+    
+    public void endGame()
+    {
+        // Display Game Over message
+        // Play explosion at player sub.
+        submarine.remove();
+        // Play multiple explosions over core (or something).
+        for (BaseActor e : BaseActor.getList(mainStage, "EnemySub"))
+        {
+            // Create explosion at enemy
+            e.remove();
+        }
     }
 }

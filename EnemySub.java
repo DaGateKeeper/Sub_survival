@@ -15,15 +15,9 @@ public class EnemySub extends BaseActor
         
        physics.setSpeed(200);
         
-       setRotation(90);
+       setRotation(0);
        physics.setMotionAngle(180);
        
        this.setBoundaryPolygon(8);
     }
-    
-    public void act(float deltaTime)
-    {
-        super.act(deltaTime);
-    }
-
 }
