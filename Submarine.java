@@ -17,7 +17,7 @@ public class Submarine extends BaseActor
         setAnimator( new Animator("assets/images/sub.png") );
         setBoundaryPolygon(10);
         
-        physics = new Physics(2000, 800, 8000);
+        physics = new Physics(2000, 600, 8000);
         
     }
 
@@ -25,6 +25,7 @@ public class Submarine extends BaseActor
     {
         super.act(dt);
         
+        boundToWorld(1600,1200);
        
     }
 }

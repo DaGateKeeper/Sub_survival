@@ -10,12 +10,14 @@ import com.badlogic.gdx.audio.Music;
 public class LevelScreen extends BaseScreen
 {
     //the initial things we need to get like the sounds and the name of objects
-    Sound pH,Ph;//any variation of PH is just a placeholder
-    Music PH;
+    Sound missile,Ph;//any variation of PH is just a placeholder
+    Music PIM;
+    
+    EnemySub enemysub;
 
     Submarine submarine;
-    int coreHealth, score;
-    Label CoreLabel, ScoreLabel;
+    int coreHealth, score, ammo;
+    Label coreLabel, scoreLabel, ammoLabel;
 
     double laserTimer;
     Label laserStatus;
@@ -23,24 +25,28 @@ public class LevelScreen extends BaseScreen
 
     public void initialize()
     {
-                BaseActor background = new BaseActor(0,0, mainStage);
+        BaseActor background = new BaseActor(0,0, mainStage);
         background.setAnimator( new Animator("assets/images/water.jpg") );
-        background.setSize(800,800);
+        background.setSize(800,600);
          
-        submarine = new Submarine(300, 25, mainStage);
+        submarine = new Submarine(190, 25, mainStage);
+       
 
-        //WE NEED TO BUILD A WALL
-        Core leftWall = new Core(0,0, mainStage);
-        leftWall.setSize(150, 800);
-        leftWall.setBoundaryRectangle();
+        // Why do we need walls
+        Core mainCore = new Core(0,0, mainStage);
+        mainCore.setSize(150, 800);
+        mainCore.setBoundaryRectangle();
+       
 
-        Wall bottomtWall = new Wall(0,0, mainStage);
-       bottomtWall.setSize(100,100);
-        bottomtWall.setBoundaryRectangle();
+        Wall bottomWall = new Wall(0,0, mainStage);
+       bottomWall.setSize(100,100);
+        bottomWall.setBoundaryRectangle();
+        bottomWall.setVisible(false);
 
         Wall topWall = new Wall(0,700, mainStage);
         topWall.setSize(800,100);
         topWall.setBoundaryRectangle();
+        
         
         // ready to shoot immediately
         laserTimer = 1;
@@ -49,11 +55,18 @@ public class LevelScreen extends BaseScreen
 
         
         score = 0;
-        ScoreLabel = new Label("Score: " + score, BaseGame.labelStyle);
-        ScoreLabel.setFontScale(0.5f);
+        scoreLabel = new Label("Score: " + score, BaseGame.labelStyle);
+        scoreLabel.setFontScale(0.5f);
+        
+        ammo = 15;
+        ammoLabel = new Label("Ammo: " + ammo, BaseGame.labelStyle);
+        ammoLabel.setFontScale(0.5f);
 
-        uiTable.add( ScoreLabel ).expandX().expandY().left().top().pad(20);
+
+        uiTable.add( scoreLabel ).expandX().expandY().left().top().pad(20);
         uiTable.add().expandX();
+        uiTable.add().expandX();
+        uiTable.add( ammoLabel ).expandX().expandY().right().top().pad(20);
         uiTable.add();
         uiTable.row();
         uiTable.add();
@@ -63,8 +76,11 @@ public class LevelScreen extends BaseScreen
         uiTable.add();
 
         
+        //PIM = Gdx.audio.newMusic( Gdx.files.internal("assets/audio/bgm/Plans_in_Motion.ogg"));
+         missile = Gdx.audio.newSound( Gdx.files.internal("assets/audio/sfx/Missile-Launch.wav"));
         
-        
+       // PIM.setLooping(true);
+       // PIM.play();
         
         
         
@@ -88,9 +104,12 @@ if ( submarine.isOnStage() )
             // 1. you just pressed the space key
             // 2. the submarine is still on the stage (still visible)
             // 3. at least one second has passed since previous shot (laserTimer > 1)
-            if ( Gdx.input.isKeyJustPressed( Keys.SPACE ) && laserTimer > 1)
+            if ( Gdx.input.isKeyJustPressed( Keys.SPACE ) && laserTimer > 1 && ammo > 0)
             {
                 Laser laser = new Laser(0,0, mainStage);
+                missile.play();
+                ammo--;
+                ammoLabel.setText( "Ammo: " + ammo);
                 laser.centerAt( submarine );
                 // reset timer, so player can not shoot until time goes by
                 laserTimer = 0;
@@ -99,15 +118,14 @@ if ( submarine.isOnStage() )
 
             if (alienTimer >= 10)
             {
-                float f;
-                double RAND=Math.random() *600;
+                //float f;
+                //double RAND=Math.random() *600;
  
-                EnemySub alien = new EnemySub(800, (float) RAND, mainStage);
+              new EnemySub(800, (float) (Math.random() * 600), mainStage);
                 alienTimer= 0;
             }
 }
-
-        
+ 
         
                 // stop paddle from passing through walls
         for (BaseActor wall : BaseActor.getList(mainStage, "Wall"))

@@ -9,56 +9,64 @@ public class MenuScreen extends BaseScreen
     public void initialize()
     {
         BaseActor background = new BaseActor(0,0, mainStage);
-        background.setAnimator( new Animator("assets/space.png") );
+        background.setAnimator( new Animator("assets/images/water.jpg") );
         background.setSize(800,600);
 
-        // BaseActor title = new BaseActor(150, 300, mainStage);
-        // title.setAnimator( new Animator("assets/starfish-collector.png") );
+        
 
-        // BaseActor instructions = new BaseActor(150, 100, mainStage);
-        // instructions.setAnimator( new Animator("assets/message-start.png") );
-
-        Label title = new Label(" Brick\nDestroyer", BaseGame.labelStyle);
+        Label title = new Label("    Sub\nSurvival", BaseGame.labelStyle);
         title.setFontScale(2);
-        title.setColor( Color.WHITE );
+        title.setColor( Color.BLUE );
+        
+       
+        
 
-        Label instructions = new Label("Press 'S' to Start\nPress 'I' for info on the game", BaseGame.labelStyle);
+        Label instructions = new Label("Press 'S' to Start", BaseGame.labelStyle);
         instructions.setColor( Color.CYAN );
-
-        // Label Exit = new Label("Press 'X' to Exit", BaseGame.labelStyle);
-        // Exit.setColor( Color.RED );
-        Label Creator = new Label("Game made by John Kulins", BaseGame.labelStyle);
-        Creator.setFontScale(0.5f);
-        Creator.setColor( Color.WHITE );
-        Label Controls = new Label
-            ("Arrow keys are your movement\nGoal:Destroy all bricks\n"
-                +"there are buffs and debuffs."
-            , BaseGame.labelStyle);
-        Controls.setFontScale(.5f);
+        
+        Label goal = new Label("Press 'D' for Instructions", BaseGame.labelStyle);
+        goal.setColor( Color.CYAN );
+        
+        Label credits = new Label("Press 'W' for Credits", BaseGame.labelStyle);
+        credits.setColor( Color.CYAN );
+        
+        // Label credits = new Label("      By\n", BaseGame.labelStyle);
+        //instructions.setColor( Color.CYAN );
+        
+        
+        
+        //Label controls = new Label("Arrow Keys Move Turtle", BaseGame.labelStyle2);
+       // instructions.setColor( Color.CYAN);
+        
+        //Label credits = new Label("Made by Angelo Morales", BaseGame.labelStyle2);
+        //instructions.setColor( Color.CYAN );
 
         uiTable.add(title);
         uiTable.row();
-
+        uiTable.add().pad(20);
+        uiTable.row();
         uiTable.add(instructions);
-
         uiTable.row();
         uiTable.add().pad(10);
-        // uiTable.add(Exit);
-        // uiTable.row();
         uiTable.row();
-        uiTable.add(Controls);
-
+        uiTable.add(goal);
         uiTable.row();
-        uiTable.add().pad(32);
+        uiTable.add().pad(10);
         uiTable.row();
-        uiTable.add(Creator);
+        uiTable.add(credits);
+        uiTable.row();
+        //uiTable.add(credits);
+        
     }
 
     public void update(float deltaTime)
     {
         if (Gdx.input.isKeyPressed(Keys.S))
-            BaseGame.setActiveScreen( new LevelScreen() );
-
+            BaseGame.setActiveScreen( new LevelScreen() );    
+        if (Gdx.input.isKeyPressed(Keys.D))
+            BaseGame.setActiveScreen( new InstructionScreen() );    
+        if (Gdx.input.isKeyPressed(Keys.W))
+            BaseGame.setActiveScreen( new CreditsScreen() );    
 
     } 
 }

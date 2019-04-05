@@ -9,7 +9,7 @@ public class Item extends BaseActor
     {
         super(x,y,stage);
 //this is where we will put the item names for easy replacement
-        String[] itemNames = {"PLACEHOLDER"};
+        String[] itemNames = {"extra-ammo"};
         
         int randomIndex = (int)(itemNames.length * Math.random());
         itemName = itemNames[randomIndex];
