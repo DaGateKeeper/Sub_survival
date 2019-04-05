@@ -25,7 +25,7 @@ public class Submarine extends BaseActor
     {
         super.act(dt);
         
-        boundToWorld(1600,1200);
+        boundToWorld(800, 600);
        
     }
 }
