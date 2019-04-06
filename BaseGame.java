@@ -22,6 +22,10 @@ public abstract class BaseGame extends Game
 
     public static LabelStyle labelStyle; // BitmapFont + Color
     
+    public static LabelStyle labelStyle2;  // BitmapFont + Color
+    
+    public static LabelStyle labelStyle3;  // BitmapFont + Color
+    
     /**
      *  Called when game is initialized; stores global reference to game object.
      */
@@ -52,6 +56,46 @@ public abstract class BaseGame extends Game
 
         labelStyle = new LabelStyle();
         labelStyle.font = customFont;
+        
+        
+        // parameters for generating a custom bitmap font
+        FreeTypeFontGenerator fontGenerator2 = 
+            new FreeTypeFontGenerator(Gdx.files.internal("assets/fonts/OpenSans.ttf"));
+        FreeTypeFontParameter fontParameters2 = new FreeTypeFontParameter();
+        fontParameters2.size = 48;
+        fontParameters2.color = Color.WHITE;
+        fontParameters2.borderWidth = 4;
+        fontParameters2.borderColor = Color.BLACK;
+        fontParameters2.borderStraight = true;
+        fontParameters2.minFilter = TextureFilter.Linear;
+        fontParameters2.magFilter = TextureFilter.Linear;
+
+        BitmapFont customFont2 = fontGenerator2.generateFont(fontParameters2);
+
+        labelStyle2 = new LabelStyle();
+        labelStyle2.font = customFont2;
+        
+        
+         // parameters for generating a custom bitmap font
+        FreeTypeFontGenerator fontGenerator3 = 
+            new FreeTypeFontGenerator(Gdx.files.internal("assets/fonts/OpenSans.ttf"));
+        FreeTypeFontParameter fontParameters3 = new FreeTypeFontParameter();
+        fontParameters3.size = 48;
+        fontParameters3.color = Color.WHITE;
+        fontParameters3.borderWidth = 4;
+        fontParameters3.borderColor = Color.BLACK;
+        fontParameters3.borderStraight = true;
+        fontParameters3.minFilter = TextureFilter.Linear;
+        fontParameters3.magFilter = TextureFilter.Linear;
+
+        BitmapFont customFont3 = fontGenerator3.generateFont(fontParameters3);
+
+        labelStyle3 = new LabelStyle();
+        labelStyle3.font = customFont3;
+        
+        
+        
+        
     }
     
     /**
