@@ -107,27 +107,21 @@ public class LevelScreen extends BaseScreen
             }
         }
         
-        // stop paddle from passing through walls
-        /*for (BaseActor wall : BaseActor.getList(mainStage, "Wall"))
-        {
-            submarine.preventOverlap(wall);
-        }*/
-        
-        for (BaseActor l : BaseActor.getList(mainStage, "Laser"))
-        {
-            for (BaseActor e : BaseActor.getList(mainStage, "EnemySub"))
-            {
-                l.remove();
-                new Explosion(e.getX(), e.getY(), mainStage);
-                e.remove();
-            }
-        }
+        for (BaseActor e : BaseActor.getList(mainStage, "EnemySub"))
+            for (BaseActor l : BaseActor.getList(mainStage, "Laser"))
+                if (l.overlaps(e))
+                {
+                    Explosion exp = new Explosion(0, 0, mainStage);
+                    exp.centerAt(e);
+                    e.remove();
+                    l.remove();
+                }
         
         //ITEMS SPAWN
         for (BaseActor actor : BaseActor.getList(mainStage, "Item"))
         {
             Item item = (Item)actor;
-
+            /*
             if ( submarine.overlaps(item) )
             {
                 switch(item.itemName)
@@ -159,7 +153,7 @@ public class LevelScreen extends BaseScreen
                         break;
                 }
                 item.remove();
-            }
+            }*/
         }
         
         // Core health

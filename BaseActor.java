@@ -85,7 +85,7 @@ public class BaseActor extends Group
         float w = getWidth();
         float h = getHeight(); 
 
-        float[] vertices = {0,0, w,0, w,h, 0,h};
+        float[] vertices = {0, 0, w, 0, w, h, 0, h};
         boundary = new Polygon(vertices);
     }
 
