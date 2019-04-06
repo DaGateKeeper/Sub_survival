@@ -17,7 +17,7 @@ public class LevelScreen extends BaseScreen
 
     Submarine submarine;
     Core mainCore;
-    int score;
+    int score, coreHealth;
     Label coreLabel, scoreLabel, ammoLabel;
 
     Label laserStatus;
@@ -53,23 +53,32 @@ public class LevelScreen extends BaseScreen
        
        ammoLabel = new Label("Ammo: " + submarine.normalAmmo, BaseGame.labelStyle);
        ammoLabel.setFontScale(0.5f);
-
-       uiTable.add( scoreLabel ).expandX().expandY().left().top().pad(20);
-       uiTable.add().expandX();
-       uiTable.add().expandX();
-       uiTable.add( ammoLabel ).expandX().expandY().right().top().pad(20);
-       uiTable.add();
-       uiTable.row();
-       uiTable.add();
-       uiTable.row();
-       uiTable.add().expandY();
-       uiTable.add();
-       uiTable.add();
-        
-       //PIM = Gdx.audio.newMusic( Gdx.files.internal("assets/audio/bgm/Plans_in_Motion.ogg"));
        
-       // PIM.setLooping(true);
-       // PIM.play();
+        coreHealth = 100;
+        coreLabel = new Label("Core: " + coreHealth, BaseGame.labelStyle);
+        coreLabel.setFontScale(0.5f);
+
+        uiTable.add().expandX();
+        uiTable.add( scoreLabel );
+        uiTable.row();
+        uiTable.add();
+        uiTable.add( ammoLabel );
+        uiTable.row();
+        uiTable.add();
+        uiTable.add().expandY();
+        uiTable.add(coreLabel).right().bottom().pad(10);
+        
+
+        
+       PIM = Gdx.audio.newMusic( Gdx.files.internal("assets/audio/bgm/Safe.ogg"));
+       missile = Gdx.audio.newSound( Gdx.files.internal("assets/audio/sfx/Missile-Launch.wav"));
+        
+       PIM.setLooping(true);
+        PIM.play();
+        
+       
+       
+      
     }
 
     public void update(float deltaTime)
@@ -92,6 +101,7 @@ public class LevelScreen extends BaseScreen
             // 3. at least one second has passed since previous shot (laserTimer > 1)
             if (Gdx.input.isKeyJustPressed( Keys.SPACE ))
             {
+                
                 submarine.fire(this);
                 ammoLabel.setText("Ammo: " + submarine.normalAmmo);
             }
@@ -124,7 +134,13 @@ public class LevelScreen extends BaseScreen
                     } 
                 }
                 
-
+        // stop paddle from passing through walls
+        /*for (BaseActor wall : BaseActor.getList(mainStage, "Wall"))
+        {
+            submarine.preventOverlap(wall);
+        }*/
+          
+        
         
         //ITEMS SPAWN
         for (BaseActor actor : BaseActor.getList(mainStage, "Item"))
@@ -146,7 +162,7 @@ public class LevelScreen extends BaseScreen
 
 
                         break;
-                    case "extra-ammo":
+                    case "AddShot":
                         // Adds normal bullets 
                         submarine.normalAmmo += 15;
                         ammoLabel.setText("Ammo: " + submarine.normalAmmo);
