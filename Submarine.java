@@ -57,6 +57,10 @@ public class Submarine extends BaseActor
             normalAmmo--;
             shotTimer = 0;
         }
+        
+        // Resets weapon if out of ammo.
+        if (specialAmmo <= 0)
+            weapon = 0;
     }
 }
  

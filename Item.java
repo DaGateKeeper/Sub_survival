@@ -14,7 +14,7 @@ public class Item extends BaseActor
         int randomIndex = (int)(itemNames.length * Math.random());
         itemName = itemNames[randomIndex];
         
-        String fileName = "assets/items/" + itemName + ".png";
+        String fileName = "assets/images/" + itemName + ".png";
         
         setAnimator( new Animator(fileName) );
         
