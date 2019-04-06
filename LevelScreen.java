@@ -194,7 +194,8 @@ public class LevelScreen extends BaseScreen
     {
         GameOver msg = new GameOver(0, 0, mainStage);
         msg.centerAt(background);
-        new Explosion(submarine.getX(), submarine.getY(), mainStage);
+        Explosion e = new Explosion(0, 0, mainStage);
+        e.centerAt(submarine);
         submarine.remove();
         // Play multiple explosions over core (or something).
         for (BaseActor e : BaseActor.getList(mainStage, "EnemySub"))
