@@ -86,10 +86,7 @@ public class LevelScreen extends BaseScreen
             // 2. the submarine is still on the stage (still visible)
             // 3. at least one second has passed since previous shot (laserTimer > 1)
             if (Gdx.input.isKeyJustPressed( Keys.SPACE ))
-            {
                 submarine.fire(this);
-                ammoLabel.setText("Ammo: " + submarine.normalAmmo);
-            }
 
             if (enemyTimer >= 1)
             {
@@ -125,10 +122,25 @@ public class LevelScreen extends BaseScreen
                         h.remove();
                         l.remove();
                     }
+                for (BaseActor p : BaseActor.getList(mainStage, "Piercing"))
+                    if (p.overlaps(h))
+                    {
+                        Explosion exp = new Explosion(0, 0, mainStage);
+                        exp.centerAt(h);
+                        h.remove();
+                    }
             }
 
             for (BaseActor e : BaseActor.getList(mainStage, "EnemySub"))
             {
+                if (e.overlaps(submarine))
+                {
+                    Explosion exp = new Explosion(0, 0, mainStage);
+                    exp.centerAt(e);
+                    e.remove();
+                }
+                
+                float itemChance = 0.99f;
                 for (BaseActor l : BaseActor.getList(mainStage, "Laser"))
                     if (l.overlaps(e))
                     {
@@ -137,12 +149,24 @@ public class LevelScreen extends BaseScreen
                         e.remove();
                         l.remove();
 
-                        double itemChance = 0.99;
                         if (Math.random() < itemChance)
                         {
-                            Item item = new Item(0,0, mainStage);
+                            Item item = new Item(0, 0, mainStage);
                             item.centerAt(e);
                         } 
+                    }
+                for (BaseActor p : BaseActor.getList(mainStage, "Piercing"))
+                    if (p.overlaps(e))
+                    {
+                        Explosion exp = new Explosion(0, 0, mainStage);
+                        exp.centerAt(e);
+                        e.remove();
+                        
+                        if (Math.random() < itemChance)
+                        {
+                            Item item = new Item(0, 0, mainStage);
+                            item.centerAt(e);
+                        }
                     }
 
                 if (e.overlaps(mainCore))
@@ -165,36 +189,35 @@ public class LevelScreen extends BaseScreen
                 {
                     switch(item.itemName)
                     {
-                        case "Pierce":
-                        // goes through the enemies
-                            submarine.weapon=1;
-                            submarine.specialAmmo= 10;                      
-                        
+                        // Goes through enemies.
+                        case "pierce-shot":
+                            submarine.weapon = 1;
+                            submarine.specialAmmo = 10;
+                            ammoLabel.setText("Piercing Ammo: " + submarine.specialAmmo);
                             break;
-                        
-                        case "Bomb":
-                            submarine.weapon=2;
-                            submarine.specialAmmo= 1;                      
-                        
+                        // Destroys all enemies.
+                        case "bomb-shot":
+                            submarine.weapon = 2;
+                            submarine.specialAmmo = 1;
+                            ammoLabel.setText("Bombs: " + submarine.specialAmmo);
                             break;
-                        
-                        case "Rapid":
-                        // fire shots faster
+                        // Fire shots faster.
+                        case "rapid-fire":
                             submarine.specialAmmo= 15;                      
                             submarine.weapon=3;
-                        
+                            ammoLabel.setText("Rapid Fire Ammo: " + submarine.specialAmmo);
                             break;
-                        
-                        case "extra-ammo":
-                        // Adds normal bullets 
+                        // Add normal ammo.
+                        case "extra-ammo-15": 
                             submarine.normalAmmo += 15;
-                            if (submarine.weapon != 0)
+                            if (submarine.weapon <= 0)
                                 ammoLabel.setText("Ammo: " + submarine.normalAmmo);
-                                break;
-
+                            break;
+                        // Return weapon back to normal.
                         default:
                             submarine.weapon = 0;
                             submarine.specialAmmo = 0;
+                            ammoLabel.setText("Ammo: " + submarine.normalAmmo);
                             break;
                     }
                     item.remove();
@@ -238,5 +261,9 @@ public class LevelScreen extends BaseScreen
         }
         for (BaseActor l : BaseActor.getList(mainStage, "Laser"))
             l.remove();
+        for (BaseActor p : BaseActor.getList(mainStage, "Piercing"))
+            p.remove();
+        for (BaseActor i : BaseActor.getList(mainStage, "Item"))
+            i.remove();
     }
 }

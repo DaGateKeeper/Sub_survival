@@ -43,34 +43,71 @@ public class Submarine extends BaseActor
         boundToWorld(800, 600);
     }
 
-    public void fire(BaseScreen s)
+    public void fire(LevelScreen s)
     {
-        if (specialAmmo != 0)
+        switch(weapon)
         {
-            switch(weapon)
-            {
-                case 1:
-                
+            // Piercing shot.
+            case 1:
+                if (shotTimer >= 1 && specialAmmo > 0)
+                {
+                    Piercing pierce = new Piercing(0, 0, s.mainStage);
+                    pierce.centerAt(this);
+                    // play pierce sfx
+                    specialAmmo--;
+                    s.ammoLabel.setText("Piercing Ammo: " + specialAmmo);
+                    shotTimer = 0;
+                }
                 break;
-                case 2:
-                
+            // Bomb shot.
+            case 2:
+                if (shotTimer >= 1 && specialAmmo > 0)
+                {
+                    for(BaseActor e : getList(s.mainStage, "EnemySub"))
+                    {
+                        Explosion exp = new Explosion(0, 0, s.mainStage);
+                        exp.centerAt(e);
+                        e.remove();
+                        // add points
+                    }
+                    // play bomb sound
+                    specialAmmo--;
+                    s.ammoLabel.setText("Bombs: " + specialAmmo);
+                    shotTimer = 0;
+                }
                 break;
-                default:
-                shotTimer=.5f;
-            }
-        }
-        else if (shotTimer >= 1 && normalAmmo > 0)
-        {
-            Laser laser = new Laser(0, 0, s.mainStage);
-            laser.centerAt(this);
-            shotSFX.play();
-            normalAmmo--;
-            shotTimer = 0;
+            // Rapid fire shots.
+            case 3:
+                if (shotTimer >= 0.5f && specialAmmo > 0)
+                {
+                    Laser laser = new Laser(0, 0, s.mainStage);
+                    laser.centerAt(this);
+                    shotSFX.play();
+                    specialAmmo--;
+                    s.ammoLabel.setText("Rapid Fire Ammo: " + specialAmmo);
+                    shotTimer = 0;
+                }
+                break;
+            // Normal shot.
+            default:
+                if (shotTimer >= 1 && normalAmmo > 0)
+                {
+                    Laser laser = new Laser(0, 0, s.mainStage);
+                    laser.centerAt(this);
+                    shotSFX.play();
+                    normalAmmo--;
+                    //s.ammoLabel.setText("Ammo: " + normalAmmo);
+                    shotTimer = 0;
+                }
+                break;
         }
 
         // Resets weapon if out of ammo.
         if (specialAmmo <= 0)
+        {
             weapon = 0;
+            s.ammoLabel.setText("Ammo: " + normalAmmo);
+        }
     }
 }
 
