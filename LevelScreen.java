@@ -107,6 +107,7 @@ public class LevelScreen extends BaseScreen
             }
         }
         
+<<<<<<< HEAD
         for (BaseActor e : BaseActor.getList(mainStage, "EnemySub"))
             for (BaseActor l : BaseActor.getList(mainStage, "Laser"))
                 if (l.overlaps(e))
@@ -116,37 +117,63 @@ public class LevelScreen extends BaseScreen
                     e.remove();
                     l.remove();
                 }
+=======
+        // stop paddle from passing through walls
+        /*for (BaseActor wall : BaseActor.getList(mainStage, "Wall"))
+        {
+            submarine.preventOverlap(wall);
+        }*/
+      
+        for (BaseActor l : BaseActor.getList(mainStage, "Laser"))
+        {
+              for (BaseActor e : BaseActor.getList(mainStage, "EnemySub"))
+            {
+                l.remove();
+                new Explosion(e.getX(), e.getY(), mainStage);
+                e.remove();
+                
+                  double itemChance = 0.99;
+                    if (Math.random() < itemChance)
+                    {
+                        Item item = new Item(0,0, mainStage);
+                        item.centerAt(e);
+                    } 
+
+            }
+        }
+>>>>>>> 9a1d8eb55e50b46172569fbdf052f5ff0e3b94ae
         
         //ITEMS SPAWN
         for (BaseActor actor : BaseActor.getList(mainStage, "Item"))
         {
             Item item = (Item)actor;
+<<<<<<< HEAD
             /*
+=======
+            
+>>>>>>> 9a1d8eb55e50b46172569fbdf052f5ff0e3b94ae
             if ( submarine.overlaps(item) )
             {
                 switch(item.itemName)
                 {
                     case "Pierce":
                         // goes through the enemies
-                        ammo += 20;
-                        ammoLabel.setText("Ammo: " + ammo);
+
+
                         //if(laser.overlaps(
                         break;
                     case "Rapid":
                         // fire shots faster
-                        ammo += 20;
-                        ammoLabel.setText("Ammo: " + ammo);
-                        laserTimer = .375f;
+
+
+
                         break;
                     case "AddShot":
                         // Adds normal bullets 
-                        ammo += 15;
-                        ammoLabel.setText("Ammo: " + ammo);
+                        submarine.normalAmmo += 15;
+                        ammoLabel.setText("Ammo: " + submarine.normalAmmo);
                         break;
-                    case "Normal":
-                        // returns the ammo to normal
-                        laserTimer = 1;
-                        break;
+                    
                     default:
                         submarine.weapon = 0;
                         submarine.specialAmmo = 0;
