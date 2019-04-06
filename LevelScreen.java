@@ -115,6 +115,13 @@ public class LevelScreen extends BaseScreen
                     exp.centerAt(e);
                     e.remove();
                     l.remove();
+                    
+                        double itemChance = 0.99;
+                    if (Math.random() < itemChance)
+                    {
+                        Item item = new Item(0,0, mainStage);
+                        item.centerAt(e);
+                    } 
                 }
                 
         // stop paddle from passing through walls
@@ -122,24 +129,7 @@ public class LevelScreen extends BaseScreen
         {
             submarine.preventOverlap(wall);
         }*/
-      
-        for (BaseActor l : BaseActor.getList(mainStage, "Laser"))
-        {
-              for (BaseActor e : BaseActor.getList(mainStage, "EnemySub"))
-            {
-                l.remove();
-                new Explosion(e.getX(), e.getY(), mainStage);
-                e.remove();
-                
-                  double itemChance = 0.99;
-                    if (Math.random() < itemChance)
-                    {
-                        Item item = new Item(0,0, mainStage);
-                        item.centerAt(e);
-                    } 
-
-            }
-        }
+          
         
         
         //ITEMS SPAWN
