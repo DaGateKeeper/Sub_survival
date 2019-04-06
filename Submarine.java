@@ -17,18 +17,18 @@ public class Submarine extends BaseActor
     public int normalAmmo;
     public int specialAmmo;
     public int weapon;
-    
+
     public static Sound shotSFX = Gdx.audio.newSound(Gdx.files.internal("assets/audio/sfx/Missile-Launch.wav"));
-    
+
     public Submarine(float x, float y, Stage stage)
     {
         super(x,y,stage);
 
         setAnimator( new Animator("assets/images/sub.png") );
         setBoundaryPolygon(10);
-        
+
         physics = new Physics(2000, 600, 8000);
-        
+
         shotTimer = 0;
         normalAmmo = 15;
         specialAmmo = 0;
@@ -42,12 +42,22 @@ public class Submarine extends BaseActor
         shotTimer += dt;
         boundToWorld(800, 600);
     }
-    
+
     public void fire(BaseScreen s)
     {
         if (specialAmmo != 0)
         {
-            
+            switch(weapon)
+            {
+                case 1:
+                
+                break;
+                case 2:
+                
+                break;
+                default:
+                shotTimer=.5f;
+            }
         }
         else if (shotTimer >= 1 && normalAmmo > 0)
         {
@@ -57,10 +67,10 @@ public class Submarine extends BaseActor
             normalAmmo--;
             shotTimer = 0;
         }
-        
+
         // Resets weapon if out of ammo.
         if (specialAmmo <= 0)
             weapon = 0;
     }
 }
- 
+

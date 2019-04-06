@@ -10,13 +10,13 @@ import com.badlogic.gdx.audio.Music;
 public class LevelScreen extends BaseScreen
 {
     boolean gameOver;
-    
+
     BaseActor background;
-    
+
     //the initial things we need to get like the sounds and the name of objects
     Sound missile,Ph;//any variation of PH is just a placeholder
     Music PIM;
-    
+
     EnemySub enemysub;
 
     Submarine submarine;
@@ -29,42 +29,42 @@ public class LevelScreen extends BaseScreen
 
     public void initialize()
     {
-       background = new BaseActor(0,0, mainStage);
-       background.setAnimator( new Animator("assets/images/water.jpg") );
-       background.setSize(800,600);
-         
-       submarine = new Submarine(190, 25, mainStage);
-       
-       mainCore = new Core(0,0, mainStage);
-       mainCore.setSize(150, 600);
-       mainCore.setBoundaryRectangle();
+        background = new BaseActor(0,0, mainStage);
+        background.setAnimator( new Animator("assets/images/water.jpg") );
+        background.setSize(800,600);
 
-       enemyTimer = 0;
+        submarine = new Submarine(190, 25, mainStage);
 
-       score = 0;
-       scoreLabel = new Label("Score: " + score, BaseGame.labelStyle);
-       scoreLabel.setFontScale(0.5f);
-       
-       ammoLabel = new Label("Ammo: " + submarine.normalAmmo, BaseGame.labelStyle);
-       ammoLabel.setFontScale(0.5f);
-       
-       coreLabel = new Label("Core: " + mainCore.health, BaseGame.labelStyle);
-       coreLabel.setFontScale(0.5f);
-       uiTable.add().expandX();
-       uiTable.add( scoreLabel );
-       uiTable.row();
-       uiTable.add();
-       uiTable.add( ammoLabel );
-       uiTable.row();
-       uiTable.add();
-       uiTable.add().expandY();
-       uiTable.add(coreLabel).right().bottom().pad(10);
-       
-       PIM = Gdx.audio.newMusic( Gdx.files.internal("assets/audio/bgm/Safe.ogg"));
-       missile = Gdx.audio.newSound( Gdx.files.internal("assets/audio/sfx/Missile-Launch.wav"));
-        
-       PIM.setLooping(true);
-       PIM.play();
+        mainCore = new Core(0,0, mainStage);
+        mainCore.setSize(150, 600);
+        mainCore.setBoundaryRectangle();
+
+        enemyTimer = 0;
+
+        score = 0;
+        scoreLabel = new Label("Score: " + score, BaseGame.labelStyle);
+        scoreLabel.setFontScale(0.5f);
+
+        ammoLabel = new Label("Ammo: " + submarine.normalAmmo, BaseGame.labelStyle);
+        ammoLabel.setFontScale(0.5f);
+
+        coreLabel = new Label("Core: " + mainCore.health, BaseGame.labelStyle);
+        coreLabel.setFontScale(0.5f);
+        uiTable.add().expandX();
+        uiTable.add( scoreLabel );
+        uiTable.row();
+        uiTable.add();
+        uiTable.add( ammoLabel );
+        uiTable.row();
+        uiTable.add();
+        uiTable.add().expandY();
+        uiTable.add(coreLabel).right().bottom().pad(10);
+
+        PIM = Gdx.audio.newMusic( Gdx.files.internal("assets/audio/bgm/Safe.ogg"));
+        missile = Gdx.audio.newSound( Gdx.files.internal("assets/audio/sfx/Missile-Launch.wav"));
+
+        PIM.setLooping(true);
+        PIM.play();
     }
 
     public void update(float deltaTime)
@@ -74,10 +74,10 @@ public class LevelScreen extends BaseScreen
             // move paddle to the left and to the right
             if (Gdx.input.isKeyPressed(Keys.UP))
                 submarine.physics.accelerateAtAngle(90);
-    
+
             if (Gdx.input.isKeyPressed(Keys.DOWN))
                 submarine.physics.accelerateAtAngle(-90);
-    
+
             submarine.shotTimer += deltaTime;
             enemyTimer += deltaTime;
 
@@ -90,22 +90,22 @@ public class LevelScreen extends BaseScreen
                 submarine.fire(this);
                 ammoLabel.setText("Ammo: " + submarine.normalAmmo);
             }
-    
+
             if (enemyTimer >= 1)
             {
                 if (Math.random() <= 0.9)
                 {
-                     EnemySub e = new EnemySub(0, 0, mainStage);
-                     e.setPosition(800, (float)(Math.random() * (600 - e.getHeight())));
+                    EnemySub e = new EnemySub(0, 0, mainStage);
+                    e.setPosition(800, (float)(Math.random() * (600 - e.getHeight())));
                 }
                 else
                 {
-                     HealSub h = new HealSub(0, 0, mainStage);
-                     h.setPosition(800, (float)(Math.random() * (600 - h.getHeight())));
+                    HealSub h = new HealSub(0, 0, mainStage);
+                    h.setPosition(800, (float)(Math.random() * (600 - h.getHeight())));
                 }
                 enemyTimer = 0;
             }
-            
+
             for (BaseActor h : BaseActor.getList(mainStage, "HealSub"))
             {
                 if (h.overlaps(mainCore))
@@ -114,7 +114,7 @@ public class LevelScreen extends BaseScreen
                     mainCore.health += 2;
                     coreLabel.setText("Core: " + mainCore.health);
                 }
-                
+
                 for (BaseActor l : BaseActor.getList(mainStage, "Laser"))
                     if (l.overlaps(h))
                     {
@@ -126,7 +126,7 @@ public class LevelScreen extends BaseScreen
                         l.remove();
                     }
             }
-            
+
             for (BaseActor e : BaseActor.getList(mainStage, "EnemySub"))
             {
                 for (BaseActor l : BaseActor.getList(mainStage, "Laser"))
@@ -136,7 +136,7 @@ public class LevelScreen extends BaseScreen
                         exp.centerAt(e);
                         e.remove();
                         l.remove();
-                        
+
                         double itemChance = 0.99;
                         if (Math.random() < itemChance)
                         {
@@ -144,7 +144,7 @@ public class LevelScreen extends BaseScreen
                             item.centerAt(e);
                         } 
                     }
-                
+
                 if (e.overlaps(mainCore))
                 {
                     Explosion exp = new Explosion(0, 0, mainStage);
@@ -156,7 +156,7 @@ public class LevelScreen extends BaseScreen
                         endGame();
                 }
             }
-                    
+
             //ITEMS SPAWN
             for (BaseActor actor : BaseActor.getList(mainStage, "Item"))
             {
@@ -166,24 +166,32 @@ public class LevelScreen extends BaseScreen
                     switch(item.itemName)
                     {
                         case "Pierce":
-                            // goes through the enemies
-    
-    
-                            //if(laser.overlaps(
+                        // goes through the enemies
+                            submarine.weapon=1;
+                            submarine.specialAmmo= 10;                      
+                        
                             break;
+                        
+                        case "Bomb":
+                            submarine.weapon=2;
+                            submarine.specialAmmo= 1;                      
+                        
+                            break;
+                        
                         case "Rapid":
-                            // fire shots faster
-    
-    
-    
+                        // fire shots faster
+                            submarine.specialAmmo= 15;                      
+                            submarine.weapon=3;
+                        
                             break;
+                        
                         case "extra-ammo":
-                            // Adds normal bullets 
+                        // Adds normal bullets 
                             submarine.normalAmmo += 15;
                             if (submarine.weapon != 0)
                                 ammoLabel.setText("Ammo: " + submarine.normalAmmo);
-                            break;
-                        
+                                break;
+
                         default:
                             submarine.weapon = 0;
                             submarine.specialAmmo = 0;
@@ -201,13 +209,12 @@ public class LevelScreen extends BaseScreen
                 Explosion exp = new Explosion(0, 0, mainStage);
                 exp.setScale(2);
                 exp.setPosition((float)(Math.random() * (mainCore.getWidth() / 2) + (mainCore.getWidth() / 4)) - (exp.getWidth() / 2),
-                                (float)(Math.random() * (mainCore.getHeight() * 0.7) + (mainCore.getHeight() * 0.1)));
+                    (float)(Math.random() * (mainCore.getHeight() * 0.7) + (mainCore.getHeight() * 0.1)));
                 enemyTimer = 0;
             }
         }
     }
-    
-    
+
     public void endGame()
     {
         gameOver = true;
