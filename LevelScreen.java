@@ -124,13 +124,7 @@ public class LevelScreen extends BaseScreen
                     } 
                 }
                 
-        // stop paddle from passing through walls
-        /*for (BaseActor wall : BaseActor.getList(mainStage, "Wall"))
-        {
-            submarine.preventOverlap(wall);
-        }*/
-          
-        
+
         
         //ITEMS SPAWN
         for (BaseActor actor : BaseActor.getList(mainStage, "Item"))
@@ -152,7 +146,7 @@ public class LevelScreen extends BaseScreen
 
 
                         break;
-                    case "AddShot":
+                    case "extra-ammo":
                         // Adds normal bullets 
                         submarine.normalAmmo += 15;
                         ammoLabel.setText("Ammo: " + submarine.normalAmmo);
