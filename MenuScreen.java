@@ -24,8 +24,11 @@ public class MenuScreen extends BaseScreen
         Label instructions = new Label("Press 'S' to Start", BaseGame.labelStyle);
         instructions.setColor( Color.CYAN );
         
-        Label goal = new Label("Press 'D' for Instructions", BaseGame.labelStyle);
+        Label goal = new Label("Press 'D' for Powerups", BaseGame.labelStyle);
         goal.setColor( Color.CYAN );
+        
+        Label goal2 = new Label("Press 'A' for Instructions", BaseGame.labelStyle);
+        goal2.setColor( Color.CYAN );
         
         Label credits = new Label("Press 'W' for Credits", BaseGame.labelStyle);
         credits.setColor( Color.CYAN );
@@ -53,6 +56,10 @@ public class MenuScreen extends BaseScreen
         uiTable.row();
         uiTable.add().pad(10);
         uiTable.row();
+        uiTable.add(goal2);
+        uiTable.row();
+        uiTable.add().pad(10);
+        uiTable.row();
         uiTable.add(credits);
         uiTable.row();
         //uiTable.add(credits);
@@ -67,6 +74,7 @@ public class MenuScreen extends BaseScreen
             BaseGame.setActiveScreen( new InstructionScreen() );    
         if (Gdx.input.isKeyJustPressed(Keys.W))
             BaseGame.setActiveScreen( new CreditsScreen() );    
-
+        if (Gdx.input.isKeyJustPressed(Keys.A))
+            BaseGame.setActiveScreen( new ControlScreen() ); 
     } 
 }

@@ -137,6 +137,8 @@ public class LevelScreen extends BaseScreen
                 {
                     Explosion exp = new Explosion(0, 0, mainStage);
                     exp.centerAt(e);
+                    score += 5;
+                    scoreLabel.setText( "Score: " + score);
                     e.remove();
                 }
                 
@@ -146,8 +148,11 @@ public class LevelScreen extends BaseScreen
                     {
                         Explosion exp = new Explosion(0, 0, mainStage);
                         exp.centerAt(e);
+                         score += 10;
+                         scoreLabel.setText( "Score: " + score);
                         e.remove();
                         l.remove();
+                        
 
                         if (Math.random() < itemChance)
                         {
@@ -160,6 +165,8 @@ public class LevelScreen extends BaseScreen
                     {
                         Explosion exp = new Explosion(0, 0, mainStage);
                         exp.centerAt(e);
+                         score += 10;
+                         scoreLabel.setText( "Score: " + score);
                         e.remove();
                         
                         if (Math.random() < itemChance)
