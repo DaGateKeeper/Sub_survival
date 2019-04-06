@@ -9,6 +9,8 @@ import com.badlogic.gdx.audio.Music;
 
 public class LevelScreen extends BaseScreen
 {
+    BaseActor background;
+    
     //the initial things we need to get like the sounds and the name of objects
     Sound missile,Ph;//any variation of PH is just a placeholder
     Music PIM;
@@ -17,7 +19,7 @@ public class LevelScreen extends BaseScreen
 
     Submarine submarine;
     Core mainCore;
-    int score, coreHealth;
+    int score;
     Label coreLabel, scoreLabel, ammoLabel;
 
     Label laserStatus;
@@ -25,7 +27,7 @@ public class LevelScreen extends BaseScreen
 
     public void initialize()
     {
-       BaseActor background = new BaseActor(0,0, mainStage);
+       background = new BaseActor(0,0, mainStage);
        background.setAnimator( new Animator("assets/images/water.jpg") );
        background.setSize(800,600);
          
@@ -54,9 +56,8 @@ public class LevelScreen extends BaseScreen
        ammoLabel = new Label("Ammo: " + submarine.normalAmmo, BaseGame.labelStyle);
        ammoLabel.setFontScale(0.5f);
        
-        coreHealth = 100;
-        coreLabel = new Label("Core: " + coreHealth, BaseGame.labelStyle);
-        coreLabel.setFontScale(0.5f);
+       coreLabel = new Label("Core: " + mainCore.health, BaseGame.labelStyle);
+       coreLabel.setFontScale(0.5f);
 
         uiTable.add().expandX();
         uiTable.add( scoreLabel );
@@ -101,7 +102,6 @@ public class LevelScreen extends BaseScreen
             // 3. at least one second has passed since previous shot (laserTimer > 1)
             if (Gdx.input.isKeyJustPressed( Keys.SPACE ))
             {
-                
                 submarine.fire(this);
                 ammoLabel.setText("Ammo: " + submarine.normalAmmo);
             }
@@ -162,7 +162,7 @@ public class LevelScreen extends BaseScreen
 
 
                         break;
-                    case "AddShot":
+                    case "extra-ammo":
                         // Adds normal bullets 
                         submarine.normalAmmo += 15;
                         ammoLabel.setText("Ammo: " + submarine.normalAmmo);
@@ -183,6 +183,7 @@ public class LevelScreen extends BaseScreen
             {
                 e.remove();
                 mainCore.health -= 1;
+                coreLabel.setText("Core: " + mainCore.health);
                 if (mainCore.health <= 0)
                     endGame();
             }
@@ -191,7 +192,8 @@ public class LevelScreen extends BaseScreen
     
     public void endGame()
     {
-        // Display Game Over message
+        GameOver msg = new GameOver(0, 0, mainStage);
+        msg.centerAt(background);
         new Explosion(submarine.getX(), submarine.getY(), mainStage);
         submarine.remove();
         // Play multiple explosions over core (or something).

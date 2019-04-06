@@ -8,7 +8,7 @@ public class Item extends BaseActor
     public Item(float x, float y, Stage stage)
     {
         super(x,y,stage);
-//this is where we will put the item names for easy replacement
+        //this is where we will put the item names for easy replacement
         String[] itemNames = {"extra-ammo"};
         
         int randomIndex = (int)(itemNames.length * Math.random());
@@ -23,15 +23,12 @@ public class Item extends BaseActor
         physics = new Physics(0, 100, 0);
         physics.setSpeed( 100 );
         physics.setMotionAngle( 180 );
-        
     }
 
     public void act(float dt)
     {
         super.act(dt);
-        
-        // if ( isOffScreen(800,800) )
-            // remove();
-            
+        if (!isOnStage())
+            remove();
     }
 }
