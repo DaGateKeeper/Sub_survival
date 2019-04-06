@@ -17,12 +17,4 @@ public class Core extends BaseActor
         this(x, y, stage);
         this.health = health;
     }
-    
-    @Override
-    public void act(float dt)
-    {
-        super.act(dt);
-        if (health <= 0)
-            remove();
-    }
 }
