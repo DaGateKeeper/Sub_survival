@@ -142,22 +142,17 @@ public class LevelScreen extends BaseScreen
                         // fire shots faster
                         ammo += 20;
                         ammoLabel.setText("Ammo: " + ammo);
-                               laserTimer = .375f;
+                        laserTimer = .375f;
                         break;
-<<<<<<< HEAD
-                    // Reset to normal weapon.
-=======
-                         case "AddShot":
+                    case "AddShot":
                         // Adds normal bullets 
                         ammo += 15;
                         ammoLabel.setText("Ammo: " + ammo);
-                         break;
-                         case "Normal":
-                         // returns the ammo to normal
-                                laserTimer = 1;
-                         break;
-                        
->>>>>>> 9bc230e36e91a7e32f8ea42c5ae1f94e94315b22
+                        break;
+                    case "Normal":
+                        // returns the ammo to normal
+                        laserTimer = 1;
+                        break;
                     default:
                         submarine.weapon = 0;
                         submarine.specialAmmo = 0;
