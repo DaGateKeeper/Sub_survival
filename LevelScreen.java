@@ -27,6 +27,8 @@ public class LevelScreen extends BaseScreen
     Label laserStatus;
     double enemyTimer;
 
+    public Sound itemSFX, itemBombSFX, pierceSFX;
+    
     public void initialize()
     {
         background = new BaseActor(0,0, mainStage);
@@ -62,7 +64,10 @@ public class LevelScreen extends BaseScreen
 
         PIM = Gdx.audio.newMusic( Gdx.files.internal("assets/audio/bgm/Safe.ogg"));
         missile = Gdx.audio.newSound( Gdx.files.internal("assets/audio/sfx/Missile-Launch.wav"));
-
+        itemSFX = Gdx.audio.newSound(Gdx.files.internal("assets/audio/sfx/Item-Collect.wav"));
+        itemBombSFX = Gdx.audio.newSound(Gdx.files.internal("assets/audio/sfx/Get-Rid-Of.ogg"));
+        pierceSFX = Gdx.audio.newSound(Gdx.files.internal("assets/audio/sfx/drop-sword.wav"));
+        
         PIM.setLooping(true);
         PIM.play();
     }
@@ -90,7 +95,7 @@ public class LevelScreen extends BaseScreen
 
             if (enemyTimer >= 1)
             {
-                if (Math.random() <= 0.9)
+                if (Math.random() <= 0.925)
                 {
                     EnemySub e = new EnemySub(0, 0, mainStage);
                     e.setPosition(800, (float)(Math.random() * (600 - e.getHeight())));
@@ -109,6 +114,8 @@ public class LevelScreen extends BaseScreen
                 {
                     h.remove();
                     mainCore.health += 2;
+                    if (mainCore.health > 10)
+                        mainCore.health = 10;
                     coreLabel.setText("Core: " + mainCore.health);
                 }
 
@@ -142,7 +149,7 @@ public class LevelScreen extends BaseScreen
                     e.remove();
                 }
                 
-                float itemChance = 0.99f;
+                float itemChance = 0.5f;
                 for (BaseActor l : BaseActor.getList(mainStage, "Laser"))
                     if (l.overlaps(e))
                     {
@@ -201,30 +208,35 @@ public class LevelScreen extends BaseScreen
                             submarine.weapon = 1;
                             submarine.specialAmmo = 10;
                             ammoLabel.setText("Piercing Ammo: " + submarine.specialAmmo);
+                            pierceSFX.play();
                             break;
                         // Destroys all enemies.
                         case "bomb-shot":
                             submarine.weapon = 2;
                             submarine.specialAmmo = 1;
                             ammoLabel.setText("Bombs: " + submarine.specialAmmo);
+                            itemBombSFX.play();
                             break;
                         // Fire shots faster.
                         case "rapid-fire":
-                            submarine.specialAmmo= 15;                      
-                            submarine.weapon=3;
+                            submarine.specialAmmo = 25;                      
+                            submarine.weapon = 3;
                             ammoLabel.setText("Rapid Fire Ammo: " + submarine.specialAmmo);
+                            itemSFX.play();
                             break;
                         // Add normal ammo.
                         case "extra-ammo-15": 
                             submarine.normalAmmo += 15;
                             if (submarine.weapon <= 0)
                                 ammoLabel.setText("Ammo: " + submarine.normalAmmo);
+                            itemSFX.play();
                             break;
                         // Return weapon back to normal.
                         default:
                             submarine.weapon = 0;
                             submarine.specialAmmo = 0;
                             ammoLabel.setText("Ammo: " + submarine.normalAmmo);
+                            itemSFX.play();
                             break;
                     }
                     item.remove();

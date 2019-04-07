@@ -53,7 +53,7 @@ public class Submarine extends BaseActor
                 {
                     Piercing pierce = new Piercing(0, 0, s.mainStage);
                     pierce.centerAt(this);
-                    // play pierce sfx
+                    s.pierceSFX.play();
                     specialAmmo--;
                     s.ammoLabel.setText("Piercing Ammo: " + specialAmmo);
                     shotTimer = 0;
@@ -68,9 +68,8 @@ public class Submarine extends BaseActor
                         Explosion exp = new Explosion(0, 0, s.mainStage);
                         exp.centerAt(e);
                         e.remove();
-                        // add points
+                        s.score += 10;
                     }
-                    // play bomb sound
                     specialAmmo--;
                     s.ammoLabel.setText("Bombs: " + specialAmmo);
                     shotTimer = 0;
@@ -78,7 +77,7 @@ public class Submarine extends BaseActor
                 break;
             // Rapid fire shots.
             case 3:
-                if (shotTimer >= 0.5f && specialAmmo > 0)
+                if (shotTimer >= 0.2f && specialAmmo > 0)
                 {
                     Laser laser = new Laser(0, 0, s.mainStage);
                     laser.centerAt(this);
