@@ -188,7 +188,7 @@ public class LevelScreen extends BaseScreen
                     Explosion exp = new Explosion(0, 0, mainStage);
                     exp.centerAt(e);
                     e.remove();
-                    mainCore.health -= 1;
+                    mainCore.health -= 2;
                     coreLabel.setText("Core: " + mainCore.health);
                     if (mainCore.health <= 0)
                         endGame();
